@@ -92,7 +92,8 @@ class InterviewRepositoryTest {
         entityManager.persist(interview);
         int userId = 2;
         var status = StatusInterview.IS_NEW;
-        var page = interviewRepository.findAllByUserIdRelated(userId, status, List.of(1), PageRequest.of(0, 10));
+        var page = interviewRepository.findAllByUserIdRelated(userId, status, List.of(1),
+                PageRequest.of(0, 10));
         MatcherAssert.assertThat(page.getTotalElements(), is(0L));
     }
 
@@ -111,7 +112,8 @@ class InterviewRepositoryTest {
         entityManager.persist(interview);
         int userId = 1;
         var status = StatusInterview.IS_NEW;
-        var page = interviewRepository.findAllByUserIdRelated(userId, status, List.of(1), PageRequest.of(0, 10));
+        var page = interviewRepository.findAllByUserIdRelated(userId, status, List.of(1),
+                PageRequest.of(0, 10));
         MatcherAssert.assertThat(page.getTotalElements(), is(1L));
     }
 

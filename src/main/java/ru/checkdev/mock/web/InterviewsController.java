@@ -83,7 +83,8 @@ public class InterviewsController {
             @RequestHeader("filter-request-params") String json,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "20") int size) throws JsonProcessingException {
-        FilterRequestParams filterRequestParams = new ObjectMapper().readValue(json, FilterRequestParams.class);
+        FilterRequestParams filterRequestParams = new ObjectMapper()
+                .readValue(json, FilterRequestParams.class);
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)

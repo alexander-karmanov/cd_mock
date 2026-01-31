@@ -73,7 +73,8 @@ class InterviewServiceTest {
 
     @Test
     public void whenSaveAndGetEmpty() {
-        when(interviewRepository.save(any(Interview.class))).thenThrow(new DataIntegrityViolationException(""));
+        when(interviewRepository.save(any(Interview.class)))
+                .thenThrow(new DataIntegrityViolationException(""));
         var interviewDTO = InterviewMapper.getInterviewDTO(interview);
         Optional<InterviewDTO> actual = interviewService.save(interviewDTO);
         assertThat(actual, is(Optional.empty()));
@@ -123,9 +124,12 @@ class InterviewServiceTest {
         }).toList();
         var page = new PageImpl<>(interviews);
         var pageDto = page.map(InterviewMapper::getInterviewDTO);
-        Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createDate"));
-        when(wisherRepository.findInterviewByUserIdApproved(userId, Pageable.unpaged())).thenReturn(Page.empty());
-        when(interviewRepository.findAllByUserIdRelated(userId, status, List.of(), pageable)).thenReturn(page);
+        Pageable pageable = PageRequest
+                .of(0, 5, Sort.by(Sort.Direction.DESC, "createDate"));
+        when(wisherRepository.findInterviewByUserIdApproved(userId, Pageable.unpaged()))
+                .thenReturn(Page.empty());
+        when(interviewRepository.findAllByUserIdRelated(userId, status, List.of(), pageable))
+                .thenReturn(page);
         var actual = interviewService.findPagingByUserIdRelated(0, 5, userId);
         assertThat(actual, is(pageDto));
         assertThat(actual.getTotalElements(), is(5L));
@@ -136,9 +140,12 @@ class InterviewServiceTest {
         int userId = 1;
         var status = StatusInterview.IS_NEW;
         Page<Interview> page = Page.empty();
-        Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createDate"));
-        when(wisherRepository.findInterviewByUserIdApproved(userId, Pageable.unpaged())).thenReturn(Page.empty());
-        when(interviewRepository.findAllByUserIdRelated(userId, status, List.of(), pageable)).thenReturn(page);
+        Pageable pageable = PageRequest
+                .of(0, 5, Sort.by(Sort.Direction.DESC, "createDate"));
+        when(wisherRepository.findInterviewByUserIdApproved(userId, Pageable.unpaged()))
+                .thenReturn(Page.empty());
+        when(interviewRepository.findAllByUserIdRelated(userId, status, List.of(), pageable))
+                .thenReturn(page);
         var actual = interviewService.findPagingByUserIdRelated(0, 5, userId);
         assertThat(actual, is(page));
         assertThat(actual.getTotalElements(), is(0L));
@@ -217,7 +224,8 @@ class InterviewServiceTest {
                 .build();
         List<Interview> listInterview = List.of(interview);
         List<InterviewDTO> expected = List.of(InterviewMapper.getInterviewDTO(interview));
-        doReturn(listInterview).when(interviewRepository).findAllByUserIdWisherIsApproveAndNoFeedback(wisherUser);
+        doReturn(listInterview).when(interviewRepository)
+                .findAllByUserIdWisherIsApproveAndNoFeedback(wisherUser);
         List<InterviewDTO> actual = interviewService.findAllIdByNoFeedback(wisherUser);
         assertThat(actual).isEqualTo(expected);
     }
@@ -225,7 +233,8 @@ class InterviewServiceTest {
     @Test
     void whenFindAllIdByNoFeedbackThenReturnEmptyList() {
         int wisherUser = 2;
-        doReturn(Collections.emptyList()).when(interviewRepository).findAllByUserIdWisherIsApproveAndNoFeedback(wisherUser);
+        doReturn(Collections.emptyList()).when(interviewRepository)
+                .findAllByUserIdWisherIsApproveAndNoFeedback(wisherUser);
         List<InterviewDTO> actual = interviewService.findAllIdByNoFeedback(wisherUser);
         assertThat(actual.isEmpty()).isTrue();
     }

@@ -30,11 +30,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class InterviewService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(InterviewService.class.getName());
     private final InterviewRepository interviewRepository;
     private final WisherRepository wisherRepository;
     private final InterviewFilterSpecifications interviewFilterSpecifications;
-
-    private static final Logger LOG = LoggerFactory.getLogger(InterviewService.class.getName());
 
     public Optional<InterviewDTO> save(InterviewDTO interviewDTO) {
         Optional<InterviewDTO> rsl = Optional.empty();
@@ -81,7 +80,8 @@ public class InterviewService {
     }
 
     public Page<InterviewDTO> findPagingByUserIdRelated(int page, int size, int userId) {
-        Page<Interview> interviews = wisherRepository.findInterviewByUserIdApproved(userId, Pageable.unpaged());
+        Page<Interview> interviews = wisherRepository
+                .findInterviewByUserIdApproved(userId, Pageable.unpaged());
         List<Integer> interviewIds = interviews.stream().map(Interview::getId).toList();
         var status = StatusInterview.IS_NEW;
         return interviewRepository.findAllByUserIdRelated(userId, status, interviewIds,

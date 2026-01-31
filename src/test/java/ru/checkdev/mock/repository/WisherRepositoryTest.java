@@ -232,7 +232,6 @@ class WisherRepositoryTest {
         assertThat(actual, is(expected));
     }
 
-
     @Test
     void whenGetUserIdWithCountedApprovedInterviewsAndDatabaseEmptyThenGetOptionalEmpty() {
         var actual = wisherRepository.getUserIdWithCountedApprovedInterviews(1);

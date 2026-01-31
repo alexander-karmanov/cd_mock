@@ -21,7 +21,8 @@ public class InterviewController {
 
     @PostMapping("/")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<InterviewDTO> save(@Valid @RequestBody InterviewDTO interviewDTO) throws SQLException {
+    public ResponseEntity<InterviewDTO> save(@Valid
+                                             @RequestBody InterviewDTO interviewDTO) throws SQLException {
         return new ResponseEntity<>(
                 interviewService
                         .save(interviewDTO)
@@ -36,7 +37,6 @@ public class InterviewController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 
     @PutMapping("/")
     @PreAuthorize("isAuthenticated()")

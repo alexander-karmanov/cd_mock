@@ -18,9 +18,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class WisherService {
 
-    private final WisherRepository wisherRepository;
-
     private static final Logger LOG = LoggerFactory.getLogger(WisherService.class.getName());
+    private final WisherRepository wisherRepository;
 
     public Optional<Wisher> save(Wisher wisher) {
         Optional<Wisher> rsl = Optional.empty();
@@ -43,7 +42,6 @@ public class WisherService {
     public Optional<Wisher> findById(int id) {
         return wisherRepository.findById(id);
     }
-
 
     public boolean update(Wisher wisher) {
         wisherRepository.save(wisher);

@@ -43,7 +43,6 @@ class WisherControllerTest {
     @MockBean
     private InterviewService interviewService;
 
-
     private Interview interview = Interview.of()
             .id(1)
             .mode(2)

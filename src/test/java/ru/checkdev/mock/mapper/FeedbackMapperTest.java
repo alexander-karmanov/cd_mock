@@ -24,7 +24,8 @@ class FeedbackMapperTest {
                 "titel", "add", "contact",
                 "approxim", null, 1, "author", 1, "");
         var feedback = new Feedback(1, interview, 2, 1, "text", 5);
-        var expected = new FeedbackDTO(feedback.getId(), feedback.getInterview().getId(), feedback.getUserId(),
+        var expected = new FeedbackDTO(feedback.getId(),
+                feedback.getInterview().getId(), feedback.getUserId(),
                 feedback.getRoleInInterview(), feedback.getTextFeedback(), feedback.getScope());
         var actual = FeedbackMapper.getFeedbackDTO(feedback);
         assertThat(actual).isEqualTo(expected);

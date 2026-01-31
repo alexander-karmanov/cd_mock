@@ -28,7 +28,9 @@ public interface WisherRepository extends CrudRepository<Wisher, Integer> {
      * @param interviewId int Interview ID
      * @return List<WisherDTO>
      */
-    @Query("SELECT new ru.checkdev.mock.dto.WisherDto(w.id, w.interview.id, w.userId, w.contactBy, w.approve) FROM wisher w WHERE w.interview.id =:interviewId")
+    @Query("SELECT new ru.checkdev.mock.dto.WisherDto(w.id, "
+           + "w.interview.id, w.userId, w.contactBy, w.approve) "
+           + "FROM wisher w WHERE w.interview.id =:interviewId")
     List<WisherDto> findWisherDTOByInterviewId(@Param("interviewId") int interviewId);
 
     /**
@@ -36,7 +38,9 @@ public interface WisherRepository extends CrudRepository<Wisher, Integer> {
      *
      * @return List<WisherDTO>
      */
-    @Query("SELECT new ru.checkdev.mock.dto.WisherDto(w.id, w.interview.id, w.userId, w.contactBy, w.approve) FROM wisher w")
+    @Query("SELECT new ru.checkdev.mock.dto.WisherDto(w.id, "
+           + "w.interview.id, w.userId, w.contactBy, w.approve) "
+           + "FROM wisher w")
     List<WisherDto> findAllWiserDto();
 
     /**
@@ -48,7 +52,8 @@ public interface WisherRepository extends CrudRepository<Wisher, Integer> {
      */
     @Transactional
     @Modifying
-    @Query(value = "UPDATE wisher w SET w.approve =:approve WHERE w.interview.id=:interviewId AND w.id=:wisherId ")
+    @Query(value = "UPDATE wisher w SET w.approve =:approve "
+                 + "WHERE w.interview.id=:interviewId AND w.id=:wisherId ")
     void setWisherApprove(@Param("interviewId") int interviewId,
                           @Param("wisherId") int wisherId,
                           @Param("approve") boolean approve);

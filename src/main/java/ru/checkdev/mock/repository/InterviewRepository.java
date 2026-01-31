@@ -50,7 +50,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Integer> {
      * но он одобренный участник и не оставил отзыв, метод вернет список с ID этого собеседования.
      * Пользователь является автором собеседования и он одобрил участника и не оставил отзыв,
      * метод вернет список с ID этого собеседования.
-     * Так же если пользователь уже оставил отзыв на собеседование с ID то это собеседование не попадает в выборку.
+     * Так же если пользователь уже оставил отзыв на собеседование с ID,
+     * то это собеседование не попадает в выборку.
      *
      * @param userId ID User
      * @return List<Interview>
@@ -58,7 +59,9 @@ public interface InterviewRepository extends JpaRepository<Interview, Integer> {
     @Query(value = """
             SELECT DISTINCT i.*
             FROM interview i
-                     JOIN wisher w ON i.id = w.interview_id AND w.approve AND (i.submitter_id = :userId OR w.user_id = :userId)
+            JOIN wisher w ON i.id = w.interview_id 
+            AND w.approve 
+            AND (i.submitter_id = :userId OR w.user_id = :userId)
             WHERE NOT EXISTS(SELECT 1
                              FROM cd_feedback cf
                              WHERE cf.interview_id = i.id

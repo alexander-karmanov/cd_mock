@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class.getSimpleName());
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(GlobalExceptionHandler.class.getSimpleName());
 
     private final ObjectMapper objectMapper;
 
@@ -29,8 +30,11 @@ public class GlobalExceptionHandler {
         this.objectMapper = objectMapper;
     }
 
-    @ExceptionHandler(value = {NullPointerException.class, IllegalArgumentException.class})
-    public void handleException(Exception e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @ExceptionHandler(value =
+            {NullPointerException.class, IllegalArgumentException.class})
+    public void handleException(Exception e,
+                                HttpServletRequest request,
+                                HttpServletResponse response) throws IOException {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setContentType("application/json");
         response.getWriter().write(objectMapper.writeValueAsString(new HashMap<>() {
@@ -48,14 +52,17 @@ public class GlobalExceptionHandler {
                 e.getFieldErrors().stream()
                         .map(f -> Map.of(
                                 f.getField(),
-                                String.format("%s. Actual value: %s", f.getDefaultMessage(), f.getRejectedValue())
+                                String.format("%s. Actual value: %s",
+                                        f.getDefaultMessage(), f.getRejectedValue())
                         ))
                         .collect(Collectors.toList())
         );
     }
 
     @ExceptionHandler(value = SQLException.class)
-    public void sqlException(Exception e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void sqlException(Exception e,
+                             HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setContentType("application/json");
         response.getWriter().write(objectMapper.writeValueAsString(new HashMap<>() {

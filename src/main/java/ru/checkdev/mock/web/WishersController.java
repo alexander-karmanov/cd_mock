@@ -64,7 +64,8 @@ public class WishersController {
     }
 
     @GetMapping("/approved/{id}")
-    public ResponseEntity<UsersApprovedInterviewsDTO> getUserIdWithCountedApprovedInterviews(@Valid @PathVariable int id) {
+    public ResponseEntity<UsersApprovedInterviewsDTO> getUserIdWithCountedApprovedInterviews(
+            @Valid @PathVariable int id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(wisherService.getUserIdWithCountedApprovedInterviews(id));
